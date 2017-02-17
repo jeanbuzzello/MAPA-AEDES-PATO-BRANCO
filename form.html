@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!-- Declarar esse app como modulo angular inicial -->
+<html class="no-js" ng-app="aedesApp">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Starter Template for Bootstrap</title>
+
+  <!-- Bootstrap core CSS -->
+  <!-- <link href="../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <script href="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/sticky-footer-navbar.css"/>
+
+
+  <link href="../bower_components/bootstrap/dist/css/starter-template.css" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkj8GausrNg464Nv5gs5cNdbS2OVvL2oI&libraries=places&language=pt-br"></script>
+    <!-- Modernizr 
+     <script src="../bower_components/modernizr/bin/modernizr"></script>
+   -->
+    <!-- JS Source cript-->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+
+    <script src="../bower_components/ng-file-upload-bower/ng-file-upload-shim.min.js"></script>
+
+    <script src="../bower_components/ng-file-upload-bower/ng-file-upload.min.js"></script>
+
+
+    
+    <!--<script src="../bower_components/angular-route/angular-route.js"></script>-->
+
+<!-- Adicionar os scripts do app e da controller -->
+    <script src="js/app.js"></script>
+    <script src="js/mapController.js"></script>
+
+<style>
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+</style>
+
+    </head>
+
+<!-- o body sera o escopo do map COntroller-->
+    <body ng-controller="mapController">
+
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+
+      <div class="container">
+
+        <div class="starter-template">
+          <h1>Bootstrap starter template</h1>
+          <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+        </div>
+
+      </div><!-- /.container -->
+
+
+      <div class="container">
+       <div class="row content">
+
+            <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form name="formulario" novalidate>
+
+                <div class="form-group">
+                  <label for="endereco">Endereço</label>
+                  <input type="text"f class="form-control" id="endereco" ng-model="formulario.endereco" ng-blur="validacao()" required>
+                  <br/>
+                <!-- <button class="btn btn-success btn-block" ng-click="carregarNoMapa()">Buscar</button> -->
+
+
+                </div>
+                
+                
+                  <input type="hidden" class="form-control" id="latitude" ng-model="formulario.latitude" required>
+                
+                
+                  <input type="hidden" class="form-control" id="longitude" ng-model="formulario.longitude" required>
+                
+
+                   <div class="form-group">
+                  <label for="comentario">Comentario</label>
+                  <textarea type="text" class="form-control" id="comentario" ng-model="formulario.comentario" required></textarea>
+                </div>
+             
+                <div class="form-group">
+                  <label for="exampleInputFile">Imagem</label>
+                  <input type="file" ngf-select ng-model="formulario.file" name="file" id="exampleInputFile">
+                </div>
+                
+                <button type="submit" class="btn btn-success btn-block" ng-click="novoPonto()" ng-disabled="formulario.$invalid">Criar registro de foco no mapa</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+           </div>
+        </div>
+
+      <div class="container">
+       <div class="row content">
+
+
+        <!-- Google Map -->
+        <div class="col-md-12">
+              
+          <div style="height:700px; width:100%;" id="mapa"></div>
+        </div>
+        
+
+      </div>
+    </div>
+    <!-- The Modal -->
+<div id="myModal" onclick="this.style.display='none';"  class="modal">
+  
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+<br/>
+
+   <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>
+<script>
+// $(document).ready(function(){
+// // Get the modal
+// var modal = document.getElementById('myModal');
+
+// // Get the image and insert it inside the modal - use its "alt" text as a caption
+// var img = document.getElementById('myImg');
+// var modalImg = document.getElementById("img01");
+// var captionText = document.getElementById("caption");
+// img.onclick = function(){
+//     modal.style.display = "block";
+//     modalImg.src = this.src;
+//     captionText.innerHTML = this.alt;
+// }
+
+// // Get the <span> element that closes the modal
+// var span = document.getElementsByClassName("close")[0].onclick;
+
+// // When the user clicks on <span> (x), close the modal
+// span.onclick = function() { 
+//     modal.style.display = "none";
+// }
+// });
+</script>
+
+
+  </body>
+  </html>
